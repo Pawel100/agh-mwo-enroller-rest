@@ -19,4 +19,9 @@ public class ParticipantService {
 		return connector.getSession().createCriteria(Participant.class).list();
 	}
 
+	public Participant findByLogin(String login) {
+		// TODO Auto-generated method stub
+		return (Participant) connector.getSession().get(Participant.class, login);
+	}
+
 }
