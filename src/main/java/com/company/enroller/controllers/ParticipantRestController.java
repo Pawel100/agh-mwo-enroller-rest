@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
@@ -34,5 +35,21 @@ public class ParticipantRestController {
 	     }
 	     return new ResponseEntity<Participant>(participant, HttpStatus.OK);
 	 }
+	
+	@RequestMapping(value = "", method = RequestMethod.POST)
+	 public ResponseEntity<?> registerParticipant(@RequestBody Participant participant){
+		// sprawdzic czy istnieje
+		if (participantService.findByLogin(participant.getLogin()) != null) {
+			return new ResponseEntity (
+				"Unable to create. A participant with login "+ participant.getLogin() + " alredy exists.", 
+				HttpStatus.CONFLICT);
+		}
+		// zapisac
+		participantService.create(participant);
+		
+		// zwrocic
+		return new ResponseEntity<Participant>(participant, HttpStatus.CREATED);
+		
+	}
 
 }
