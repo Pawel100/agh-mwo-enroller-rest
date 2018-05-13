@@ -84,7 +84,16 @@ public class ParticipantRestController {
 	     
 	     // zwróć
 	     return new ResponseEntity("Participant with login"+participant+"has been update", HttpStatus.OK);
-	     //   
+	     //
+	     // jak uruchomić: w postmanie dajemy: put
+	     // adress: http://localhost:8080/participants/user5
+	     // ustawiamy na JSON (application/json)
+	     // zaznaczamy body: raw
+	     // wklejamy:
+	     //{
+	    //	    "login": "user5",
+	    //	    "password": "password5"
+	    //	}
 
 	     
 	 }
