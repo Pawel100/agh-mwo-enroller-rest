@@ -51,5 +51,23 @@ public class ParticipantRestController {
 		return new ResponseEntity<Participant>(participant, HttpStatus.CREATED);
 		
 	}
+	
+	@RequestMapping(value = "/{id}", method = RequestMethod.DELETE)
+	public ResponseEntity<?> deleteParticipant(@PathVariable("id") String login) {
+	     Participant participant = participantService.findByLogin(login);
+	     if (participant == null) {
+	         return new ResponseEntity(HttpStatus.NOT_FOUND);
+	     }
+	     // wykasować usera
+	     participantService.delete(participant);
+	     
+	     // zwróć
+	     return new ResponseEntity (
+					"A participant with login "+ participant.getLogin() + " has been removed.", 
+					 HttpStatus.OK);
+	     //  curl -i -s -X DELETE http://localhost:8080/participants/somelogin5    - w cmd/bash 
+
+	     
+	 }
 
 }
