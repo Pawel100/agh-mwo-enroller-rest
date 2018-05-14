@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
@@ -35,6 +36,22 @@ public class MeetingRestController {
 	     }
 	     return new ResponseEntity<Meeting>(meeting, HttpStatus.OK);
 	 }
+	
+	@RequestMapping(value = "", method = RequestMethod.POST)
+	 public ResponseEntity<?> registerMeeting(@RequestBody Meeting meeting){
+		// sprawdzic czy istnieje
+		if (meetingService.findById(meeting.getId()) != null) {
+			return new ResponseEntity (
+				"Unable to create. A meeting with title "+ meeting.getId() + " alredy exists.", 
+				HttpStatus.CONFLICT);
+		}
+		// zapisac
+		meetingService.create(meeting);
+		
+		// zwrocic
+		return new ResponseEntity<Meeting>(meeting, HttpStatus.CREATED);
+		
+	}
 	
 	
 

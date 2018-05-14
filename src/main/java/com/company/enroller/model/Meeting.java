@@ -23,7 +23,7 @@ public class Meeting {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
-	private long id;
+	private Integer id;
 
 	@Column
 	private String title;
@@ -40,7 +40,7 @@ public class Meeting {
 			@JoinColumn(name = "participant_login") })
 	Set<Participant> participants = new HashSet<>();
 
-	public long getId() {
+	public int getId() {
 		return id;
 	}
 
@@ -56,7 +56,7 @@ public class Meeting {
 		return date;
 	}
 
-	public void setId(long id) {
+	public void setId(int id) {
 		this.id = id;
 	}
 

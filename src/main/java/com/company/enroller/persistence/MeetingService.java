@@ -3,6 +3,7 @@ package com.company.enroller.persistence;
 import java.util.Collection;
 
 import org.hibernate.Query;
+import org.hibernate.Transaction;
 import org.springframework.stereotype.Component;
 
 import com.company.enroller.model.Meeting;
@@ -25,6 +26,18 @@ public class MeetingService {
 	public Meeting findById(int id) {
 		// TODO Auto-generated method stub
 		return (Meeting) connector.getSession().get(Meeting.class, id);
+	}
+	
+	public Meeting findByTitle(String title) {
+		// TODO Auto-generated method stub
+		return (Meeting) connector.getSession().get(Meeting.class, title);
+	}
+
+	public void create(Meeting meeting) {
+		// TODO Auto-generated method stub
+		Transaction transaction = connector.getSession().beginTransaction();
+		connector.getSession().save(meeting);
+		transaction.commit();
 	}
 
 }
