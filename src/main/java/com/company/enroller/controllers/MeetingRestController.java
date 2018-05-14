@@ -53,6 +53,26 @@ public class MeetingRestController {
 		
 	}
 	
+
+	@RequestMapping(value = "/{id}", method = RequestMethod.DELETE)
+	public ResponseEntity<?> deleteMeeting(@PathVariable("id") int id) {
+	     Meeting meeting = meetingService.findById(id);
+	     if (meeting == null) {
+	         return new ResponseEntity(HttpStatus.NOT_FOUND);
+	     }
+	     // wykasować meeting
+	     meetingService.delete(meeting);
+	     
+	     // zwróć
+	     return new ResponseEntity (
+					"A meeting with id "+ meeting.getId() + " has been removed.", 
+					 HttpStatus.OK);
+	     //   curl -i -s -X DELETE http://localhost:8080/meetings/2    - w cmd/bash 
+
+	     
+	 }
+	
+	
 	
 
 }

@@ -40,4 +40,12 @@ public class MeetingService {
 		transaction.commit();
 	}
 
+	public void delete(Meeting meeting) {
+		// TODO Auto-generated method stub
+		Transaction transaction = connector.getSession().beginTransaction();
+		connector.getSession().delete(meeting);;
+		transaction.commit();
+		
+	}
+
 }
